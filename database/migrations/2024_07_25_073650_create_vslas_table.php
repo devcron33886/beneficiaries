@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('cell_id')->nullable()->constrained('cells')->onDelete('cascade');
             $table->foreignId('village_id')->nullable()->constrained('villages')->onDelete('cascade');
             $table->string('entrance_year');
-            $table->date('mou_sign_date');
+            $table->date('mou_sign_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
