@@ -15,6 +15,7 @@ class ZamukaBeneficiaryResource extends Resource
     protected static ?string $model = ZamukaBeneficiary::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
     protected static ?string $recordTitleAttribute = 'head_of_household_name';
 
     public static function form(Form $form): Form

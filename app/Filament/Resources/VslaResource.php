@@ -18,6 +18,7 @@ class VslaResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationLabel = 'All Vslas';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
@@ -25,18 +26,18 @@ class VslaResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('code')
-                ->placeholder('Enter unique code that reperesent VSLA')
+                    ->placeholder('Enter unique code that reperesent VSLA')
                     ->required()
                     ->unique(),
                 Forms\Components\TextInput::make('name')
-                ->placeholder('Enter the full name of VSLA.')
+                    ->placeholder('Enter the full name of VSLA.')
                     ->required(),
                 Forms\Components\TextInput::make('representative_name')
-                ->placeholder('Enter VSLA representative name')
+                    ->placeholder('Enter VSLA representative name')
                     ->required(),
                 Forms\Components\TextInput::make('representative_id')
-                ->label('Representative NID Number')
-                ->placeholder('Enter VSLA representative id number')
+                    ->label('Representative NID Number')
+                    ->placeholder('Enter VSLA representative id number')
                     ->unique()
                     ->required(),
                 Forms\Components\TextInput::make('representative_phone')

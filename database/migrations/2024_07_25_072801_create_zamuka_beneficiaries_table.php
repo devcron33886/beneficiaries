@@ -21,10 +21,10 @@ return new class extends Migration
             $table->foreignId('sector_id')->nullable()->constrained('sectors')->onDelete('cascade');
             $table->foreignId('cell_id')->nullable()->constrained('cells')->onDelete('cascade');
             $table->foreignId('village_id')->nullable()->constrained('villages')->onDelete('cascade');
-            $table->string('house_hold_phone');
-            $table->integer('family_size');
-            $table->string('main_source_of_income');
-            $table->string('entrance_year');
+            $table->string('house_hold_phone')->nullable();
+            $table->integer('family_size')->nullable();
+            $table->string('main_source_of_income')->nullable();
+            $table->string('entrance_year')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
