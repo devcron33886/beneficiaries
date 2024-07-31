@@ -20,7 +20,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1197280072044001',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23SRU3',
@@ -29,7 +29,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1198870147707074',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23NMU1',
@@ -38,7 +38,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1197680077265072',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23SNZ2',
@@ -47,7 +47,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1197680078080025',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23SKA5',
@@ -56,7 +56,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1197270072039054',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23NKA7',
@@ -65,7 +65,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1195880063881081',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23SRE6',
@@ -74,7 +74,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1199070145557092',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
             [
                 'code' => '23NNG10',
@@ -83,7 +83,7 @@ class VslaSeeder extends Seeder
                 'representative_id' => '1197280072044001',
                 'representative_phone' => '',
                 'entrance_year' => '2023',
-                'mou_sign_date' => '04/03/2023',
+                'mou_sign_date' => '04-03-2023',
             ],
         ];
         Vsla::insert($vslas);
