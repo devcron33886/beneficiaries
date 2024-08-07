@@ -67,14 +67,7 @@ class ZamukaBeneficiaryResource extends Resource
                 Tables\Columns\TextColumn::make('head_of_household_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('household_id_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('spouse_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('spouse_id_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('district.name')
-                    ->numeric()
-                    ->sortable(),
+                    ->searchable(),               
                 Tables\Columns\TextColumn::make('sector.name')
                     ->numeric()
                     ->sortable(),
@@ -85,12 +78,7 @@ class ZamukaBeneficiaryResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('house_hold_phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('family_size')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('main_source_of_income')
-                    ->searchable(),
+                
                 Tables\Columns\TextColumn::make('entrance_year')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -110,7 +98,7 @@ class ZamukaBeneficiaryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
