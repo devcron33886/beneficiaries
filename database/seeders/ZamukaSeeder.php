@@ -15,7 +15,7 @@ class ZamukaSeeder extends Seeder
     {
 
         $csvFile = base_path('/database/seeders/data/zamuka.csv');
-         $data = $this->csvToArray($csvFile);
+        $data = $this->csvToArray($csvFile);
         foreach ($data as $row) {
             // Check if foreign key values exist
             if (
@@ -34,7 +34,7 @@ class ZamukaSeeder extends Seeder
                     'cell_id' => $row['cell_id'],
                     'village_id' => $row['village_id'],
                     'house_hold_phone' => $row['house_hold_phone'],
-                    'family_size' => $row['family_size'],
+                    'family_size' => $this->parseInteger($row['family_size']),
                     'main_source_of_income' => $row['main_source_of_income'],
                     'entrance_year' => $row['entrance_year'],
                     'created_at' => now(),
@@ -76,5 +76,16 @@ class ZamukaSeeder extends Seeder
     private function foreignKeyExists($table, $id)
     {
         return DB::table($table)->where('id', $id)->exists();
+    }
+
+    /**
+     * Parse an integer value, handling empty strings.
+     *
+     * @param  mixed  $value
+     * @return int|null
+     */
+    private function parseInteger($value)
+    {
+        return empty($value) ? null : (int) $value;
     }
 }
