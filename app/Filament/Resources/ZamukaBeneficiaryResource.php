@@ -28,13 +28,22 @@ class ZamukaBeneficiaryResource extends Resource
                 Forms\Components\TextInput::make('spouse_name'),
                 Forms\Components\TextInput::make('spouse_id_number'),
                 Forms\Components\Select::make('district_id')
-                    ->relationship('district', 'name'),
+                    ->relationship('district', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->native(false),
                 Forms\Components\Select::make('sector_id')
                     ->relationship('sector', 'name'),
                 Forms\Components\Select::make('cell_id')
-                    ->relationship('cell', 'name'),
+                    ->relationship('cell', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->native(false),
                 Forms\Components\Select::make('village_id')
-                    ->relationship('village', 'name'),
+                    ->relationship('village', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->native(false),
                 Forms\Components\TextInput::make('house_hold_phone')
                     ->tel()
                     ->required(),
