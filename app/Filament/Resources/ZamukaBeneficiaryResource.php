@@ -78,6 +78,7 @@ class ZamukaBeneficiaryResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('house_hold_phone')
+                ->searchable(),
                 
                 Tables\Columns\TextColumn::make('entrance_year')
                     ->searchable(),
