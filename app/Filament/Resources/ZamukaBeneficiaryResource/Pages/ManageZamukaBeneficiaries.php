@@ -13,8 +13,7 @@ class ManageZamukaBeneficiaries extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            \EightyNine\ExcelImport\ExcelImportAction::make()
-                ->color('info'),
+            
             Actions\CreateAction::make()->slideOver()->label('Add Zamuka Beneficiary')->icon('heroicon-o-plus-circle'),
         ];
     }
