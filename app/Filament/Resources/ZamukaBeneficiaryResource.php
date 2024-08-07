@@ -33,7 +33,10 @@ class ZamukaBeneficiaryResource extends Resource
                     ->preload()
                     ->native(false),
                 Forms\Components\Select::make('sector_id')
-                    ->relationship('sector', 'name'),
+                    ->relationship('sector', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->native(false),
                 Forms\Components\Select::make('cell_id')
                     ->relationship('cell', 'name')
                     ->searchable()
