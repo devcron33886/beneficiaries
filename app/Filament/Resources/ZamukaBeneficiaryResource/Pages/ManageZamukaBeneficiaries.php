@@ -22,7 +22,7 @@ class ManageZamukaBeneficiaries extends ManageRecords
     public function getHeaderWidgets(): array
     {
         return [
-            ZamukaOverview::make(),
+            ZamukaOverview::class,
         ];
     }
 }
