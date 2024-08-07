@@ -67,7 +67,7 @@ class ZamukaBeneficiaryResource extends Resource
                 Tables\Columns\TextColumn::make('head_of_household_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('household_id_number')
-                    ->searchable(),               
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('sector.name')
                     ->numeric()
                     ->sortable(),
@@ -78,8 +78,8 @@ class ZamukaBeneficiaryResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('house_hold_phone')
-                ->searchable(),
-                
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('entrance_year')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
