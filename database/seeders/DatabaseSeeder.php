@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ZamukaSeeder::class,
             EcdSeeder::class,
             MvtcSeeder::class,
+            MicrocreditSeeder::class,
 
         ]);
     }
