@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('school_feedings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('grade');
+            $table->string('grade')->nullable();
             $table->string('gender')->nullable();
-            $table->string('school');
-            $table->string('option');
+            $table->string('school')->nullable();
+            $table->string('option')->nullable();
             $table->string('school_phone')->nullable();
             $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
             $table->foreignId('sector_id')->nullable()->constrained('sectors')->onDelete('cascade');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('home_phone')->nullable();
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

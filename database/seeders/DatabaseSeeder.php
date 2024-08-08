@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             EcdSeeder::class,
             MvtcSeeder::class,
             MicrocreditSeeder::class,
+            SchoolFeedingSeeder::class,
 
         ]);
     }
