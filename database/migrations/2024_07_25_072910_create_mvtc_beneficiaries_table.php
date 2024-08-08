@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('trade');
             $table->string('scholar_type');
             $table->string('intake');
-            $table->string('graduation_date');
+            $table->string('graduation_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

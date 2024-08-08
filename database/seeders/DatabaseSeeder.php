@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             LocationsSeeder::class,
             VslaSeeder::class,
             ZamukaSeeder::class,
+            EcdSeeder::class,
+            MvtcSeeder::class,
 
         ]);
     }
