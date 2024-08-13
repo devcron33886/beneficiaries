@@ -23,7 +23,9 @@ class EcdBeneficiaryResource extends Resource
 {
     protected static ?string $model = EcdBeneficiary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
     {
