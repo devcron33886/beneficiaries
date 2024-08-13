@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\EcdBeneficiaryResource\Pages;
 
 use App\Filament\Resources\EcdBeneficiaryResource;
+use App\Filament\Resources\EcdBeneficiaryResource\Widgets\EcdWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -14,6 +15,13 @@ class ManageEcdBeneficiaries extends ManageRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    public function getHeaderWidgets(): array
+    {
+        return [
+            EcdWidget::class,
         ];
     }
 }

@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\EcdGrade;
+use App\Enums\GenderEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EcdBeneficiary extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
+
+    protected $casts = ['gender' => GenderEnum::class,'grade'=>EcdGrade::class];
+
+    protected $guarded = [];
 }

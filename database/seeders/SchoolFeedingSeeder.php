@@ -1,10 +1,9 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class SchoolFeedingSeeder extends Seeder
 {
@@ -16,7 +15,7 @@ class SchoolFeedingSeeder extends Seeder
         // Specify the path to your CSV file
         $csvPath = 'database/seeders/data/school_feedings.csv';
 
-          // Open the CSV file
+        // Open the CSV file
         $handle = fopen($csvPath, 'r');
 
         // Skip the header row
