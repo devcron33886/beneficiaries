@@ -23,7 +23,9 @@ class EcdBeneficiaryResource extends Resource
 {
     protected static ?string $model = EcdBeneficiary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationGroup = 'ECD Management';
+
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -49,27 +51,27 @@ class EcdBeneficiaryResource extends Resource
                 Forms\Components\Select::make('sector_id')
                     ->label('Sector')
                     ->options(fn (Get $get): Collection => Sector::query()
-                    ->where('district_id', $get('district_id'))
-                    ->pluck('name', 'id'))
+                        ->where('district_id', $get('district_id'))
+                        ->pluck('name', 'id'))
                     ->live()
                     ->native(false)
                     ->required(),
                 Forms\Components\Select::make('cell_id')
-                ->label('Cell')
-                ->options(fn (Get $get): Collection => Cell::query()
-                ->where('sector_id', $get('sector_id'))
-                ->pluck('name', 'id'))
-                ->live()
-                ->native(false)
-                ->required(),
+                    ->label('Cell')
+                    ->options(fn (Get $get): Collection => Cell::query()
+                        ->where('sector_id', $get('sector_id'))
+                        ->pluck('name', 'id'))
+                    ->live()
+                    ->native(false)
+                    ->required(),
                 Forms\Components\Select::make('village_id')
-                ->label('Village')
-                ->options(fn (Get $get): Collection => Village::query()
-                ->where('cell_id', $get('cell_id'))
-                ->pluck('name', 'id'))
-                ->native(false)
-                ->live()
-                ->required(),
+                    ->label('Village')
+                    ->options(fn (Get $get): Collection => Village::query()
+                        ->where('cell_id', $get('cell_id'))
+                        ->pluck('name', 'id'))
+                    ->native(false)
+                    ->live()
+                    ->required(),
                 Forms\Components\TextInput::make('father_name'),
                 Forms\Components\TextInput::make('father_id_number'),
                 Forms\Components\TextInput::make('mother_name'),
@@ -85,7 +87,7 @@ class EcdBeneficiaryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('grade')
-                ->badge()
+                    ->badge()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
@@ -110,14 +112,14 @@ class EcdBeneficiaryResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('gender')
-                ->options(GenderEnum::class)
-                ->native(false)
-                ->default(null),
+                    ->options(GenderEnum::class)
+                    ->native(false)
+                    ->default(null),
                 SelectFilter::make('grade')
-               ->options(EcdGrade::class)
-               ->native(false)
-                ->searchable()
-                ->default(null),
+                    ->options(EcdGrade::class)
+                    ->native(false)
+                    ->searchable()
+                    ->default(null),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->slideOver(),

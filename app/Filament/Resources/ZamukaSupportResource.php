@@ -2,30 +2,40 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MalnutritionSupportResource\Pages;
-use App\Models\MalnutritionSupport;
+use App\Filament\Resources\ZamukaSupportResource\Pages;
+use App\Models\ZamukaSupport;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class MalnutritionSupportResource extends Resource
+class ZamukaSupportResource extends Resource
 {
-    protected static ?string $model = MalnutritionSupport::class;
+    protected static ?string $model = ZamukaSupport::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Malnutrition Management';
+    protected static ?string $navigationGroup = 'Zamuka Management';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('malnutrition_id')
-                    ->relationship('malnutrition', 'name')
+                Forms\Components\TextInput::make('zamuka_beneficiary_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('house')
                     ->required(),
-                Forms\Components\DatePicker::make('package_receiving_date')
+                Forms\Components\TextInput::make('home_equipments')
+                    ->required(),
+                Forms\Components\TextInput::make('bicycle')
+                    ->required(),
+                Forms\Components\TextInput::make('cowshed')
+                    ->required(),
+                Forms\Components\TextInput::make('cow')
+                    ->required(),
+                Forms\Components\TextInput::make('goats')
                     ->required(),
             ]);
     }
@@ -34,12 +44,21 @@ class MalnutritionSupportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('malnutrition.name')
+                Tables\Columns\TextColumn::make('zamuka_beneficiary_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('package_receiving_date')
-                    ->date()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('house')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('home_equipments')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('bicycle')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cowshed')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cow')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('goats')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -71,7 +90,7 @@ class MalnutritionSupportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageMalnutritionSupports::route('/'),
+            'index' => Pages\ManageZamukaSupports::route('/'),
         ];
     }
 }

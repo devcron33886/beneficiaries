@@ -16,6 +16,8 @@ class MicrocreditResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Microcredit Management';
+
     public static function form(Form $form): Form
     {
         return $form

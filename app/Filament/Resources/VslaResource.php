@@ -17,6 +17,8 @@ class VslaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $navigationGroup = 'Microcredit Management';
+
     protected static ?string $navigationLabel = 'All Vslas';
 
     protected static ?string $recordTitleAttribute = 'name';

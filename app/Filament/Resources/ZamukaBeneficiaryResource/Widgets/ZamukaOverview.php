@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\ZamukaBeneficiaryResource\Widgets;
 
 use App\Models\ZamukaBeneficiary;
 use Filament\Support\Enums\IconPosition;

@@ -14,6 +14,8 @@ class ZamukaBeneficiaryResource extends Resource
 {
     protected static ?string $model = ZamukaBeneficiary::class;
 
+    protected static ?string $navigationGroup = 'Zamuka Management';
+
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $recordTitleAttribute = 'head_of_household_name';

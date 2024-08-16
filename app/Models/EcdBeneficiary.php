@@ -11,7 +11,7 @@ class EcdBeneficiary extends Model
 {
     use SoftDeletes;
 
-    protected $casts = ['gender' => GenderEnum::class,'grade'=>EcdGrade::class];
+    protected $casts = ['gender' => GenderEnum::class, 'grade' => EcdGrade::class];
 
     protected $guarded = [];
 }

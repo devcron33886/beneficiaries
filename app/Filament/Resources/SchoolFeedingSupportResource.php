@@ -2,30 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MalnutritionSupportResource\Pages;
-use App\Models\MalnutritionSupport;
+use App\Filament\Resources\SchoolFeedingSupportResource\Pages;
+use App\Models\SchoolFeedingSupport;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class MalnutritionSupportResource extends Resource
+class SchoolFeedingSupportResource extends Resource
 {
-    protected static ?string $model = MalnutritionSupport::class;
+    protected static ?string $model = SchoolFeedingSupport::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Malnutrition Management';
+    protected static ?string $navigationGroup = 'School Feeding Management';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('malnutrition_id')
-                    ->relationship('malnutrition', 'name')
+                Forms\Components\Select::make('school_feeding_id')
+                    ->relationship('schoolFeeding', 'name')
                     ->required(),
-                Forms\Components\DatePicker::make('package_receiving_date')
+                Forms\Components\TextInput::make('academic_year')
+                    ->required(),
+                Forms\Components\TextInput::make('trimester')
                     ->required(),
             ]);
     }
@@ -34,12 +36,13 @@ class MalnutritionSupportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('malnutrition.name')
+                Tables\Columns\TextColumn::make('schoolFeeding.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('package_receiving_date')
-                    ->date()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('academic_year')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('trimester')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -71,7 +74,7 @@ class MalnutritionSupportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageMalnutritionSupports::route('/'),
+            'index' => Pages\ManageSchoolFeedingSupports::route('/'),
         ];
     }
 }

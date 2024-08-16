@@ -20,6 +20,8 @@ class SchoolFeedingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
+    protected static ?string $navigationGroup = 'School Feeding Management';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form

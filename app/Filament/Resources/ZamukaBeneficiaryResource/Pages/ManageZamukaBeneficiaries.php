@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ZamukaBeneficiaryResource\Pages;
 
 use App\Filament\Resources\ZamukaBeneficiaryResource;
-use App\Filament\Widgets\ZamukaOverview;
+use App\Filament\Resources\ZamukaBeneficiaryResource\Widgets\ZamukaOverview;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -22,7 +22,7 @@ class ManageZamukaBeneficiaries extends ManageRecords
     public function getHeaderWidgets(): array
     {
         return [
-            ZamukaOverview::class,
+            ZamukaOverView::class,
         ];
     }
 }
