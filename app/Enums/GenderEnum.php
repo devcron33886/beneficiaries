@@ -15,7 +15,12 @@ enum GenderEnum: string implements HasColor, HasIcon, HasLabel
 
     public function getLabel(): string
     {
-        return ucfirst($this->value);
+        return match ($this) {
+            self::MALE => 'Male',
+            self::FEMALE => 'Female',
+            self::F => 'Female',
+            self::M => 'Male',
+        };
     }
 
     public function getIcon(): string
@@ -26,9 +31,10 @@ enum GenderEnum: string implements HasColor, HasIcon, HasLabel
     public function getColor(): string
     {
         return match ($this) {
-            self::MALE => 'sky',
-            self::FEMALE => 'green',
-            default => 'blue',
+            self::MALE => 'info',
+            self::FEMALE => 'success',
+            self::F => 'success',
+            self::M => 'info',
         };
     }
 }
