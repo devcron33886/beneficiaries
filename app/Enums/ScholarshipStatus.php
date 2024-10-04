@@ -1,16 +1,15 @@
 <?php
+
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-
-enum ScholarshipStatus: string implements HasColor,HasLabel
+enum ScholarshipStatus: string implements HasColor, HasLabel
 {
     case PROGRESS = 'progress';
     case GRADUATED = 'graduated';
     case PENDING = 'pending';
-
 
     public function getLabel(): string
     {
@@ -19,8 +18,9 @@ enum ScholarshipStatus: string implements HasColor,HasLabel
             self::GRADUATED => 'Graduated',
             self::PENDING => 'Pending',
         };
-        
+
     }
+
     public function getColor(): string
     {
         return match ($this) {
@@ -28,9 +28,6 @@ enum ScholarshipStatus: string implements HasColor,HasLabel
             self::GRADUATED => 'green',
             self::PENDING => 'red',
         };
-        
+
     }
-
-
-
 }

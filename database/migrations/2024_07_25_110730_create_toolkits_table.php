@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('tvet_attended')->nullable();
             $table->string('option')->nullable();
             $table->string('level')->nullable();
+            $table->string('training_intake')->nullable();
+            $table->date('reception_date')->nullable();
             $table->boolean('toolkit_received')->nullable();
             $table->decimal('toolkit_cost', 8, 2)->nullable();
             $table->decimal('subsidized_percent', 5, 2)->nullable();
-            $table->decimal('loan_recommended', 8, 2)->nullable();
+            $table->string('sector')->nullable();
             $table->decimal('total', 8, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();

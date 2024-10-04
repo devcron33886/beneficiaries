@@ -69,31 +69,17 @@ class ToolkitResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('identification_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tvet_attended')
+                    ->badge()
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('option')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('level')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('toolkit_received')
+                    ->sortable()
                     ->boolean(),
-                Tables\Columns\TextColumn::make('toolkit_cost')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('subsidized_percent')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('loan_recommended')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -111,8 +97,8 @@ class ToolkitResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
+                Tables\Actions\DeleteAction::make()->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

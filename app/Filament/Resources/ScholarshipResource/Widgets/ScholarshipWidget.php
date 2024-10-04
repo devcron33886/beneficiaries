@@ -12,14 +12,14 @@ class ScholarshipWidget extends BaseWidget
     {
         return [
             Stat::make('Total Beneficiaries', Scholarship::count())
-             ->chart([7, 2, 10, 3, 15, 4, 17])
-            ->color('primary'),
+                ->chart([7, 2, 10, 3, 15, 4, 17])
+                ->color('primary'),
             Stat::make('Males', Scholarship::where('gender', 'M')->count())
-            ->chart([7, 2, 10, 3, 15, 8, 17])
-             ->color('success'),
-            Stat::make('Females', Scholarship::where('gender','F')->count())
-            ->chart([7, 2, 10, 3, 15, 0, 18])
-             ->color('info'),
+                ->chart([7, 2, 10, 3, 15, 8, 17])
+                ->color('success'),
+            Stat::make('Females', Scholarship::where('gender', 'F')->count())
+                ->chart([7, 2, 10, 3, 15, 0, 18])
+                ->color('info'),
         ];
     }
 }

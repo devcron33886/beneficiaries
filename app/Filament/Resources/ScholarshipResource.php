@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ScholarshipResource\Pages;
-use App\Filament\Resources\ScholarshipResource\RelationManagers;
 use App\Models\Scholarship;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ScholarshipResource extends Resource
 {
@@ -53,22 +50,21 @@ class ScholarshipResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
-                ->badge()
-                ->sortable()
+                    ->badge()
+                    ->sortable()
                     ->searchable(),
-                
-                
+
                 Tables\Columns\TextColumn::make('mobile')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('university_attended')
-                ->sortable()
-                ->searchable(),
-                Tables\Columns\TextColumn::make('year_of_entrance')
-                ->sortable()
+                    ->sortable()
                     ->searchable(),
-            
+                Tables\Columns\TextColumn::make('year_of_entrance')
+                    ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('status')
-               ->searchable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

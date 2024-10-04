@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             MicrocreditSeeder::class,
             SchoolFeedingSeeder::class,
             ScholarshipSeeder::class,
+            ToolkitsSeeder::class,
 
         ]);
     }
