@@ -12,5 +12,6 @@ class Toolkit extends Model
 
     protected $casts = [
         'gender' => GenderEnum::class,
+        'reception_date' => 'date',
     ];
 }

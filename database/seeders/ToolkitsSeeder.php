@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ToolkitsSeeder extends Seeder
 {
@@ -21,14 +22,25 @@ class ToolkitsSeeder extends Seeder
         foreach ($csvData as $row) {
             $data = array_combine($header, $row);
             //convert empty strings to null
-
             foreach ($data as $key => $value) {
                 $data[$key] = trim($value) === '' ? null : trim($value);
             }
-            //skip if id_num bber is empty or duplicate
+            //skip if id_number is empty or duplicate
             if (is_null($data['identification_number']) || in_array($data['identification_number'], $existingIdNumbers)) {
                 continue;
             }
+
+            // Convert date format
+            $receptionDate = null;
+            if (!is_null($data['reception_date'])) {
+                try {
+                    $receptionDate = Carbon::createFromFormat('d-m-Y', $data['reception_date'])->format('Y-m-d');
+                } catch (\Exception $e) {
+                    // If date conversion fails, set to null
+                    $receptionDate = null;
+                }
+            }
+
             DB::table('toolkits')->insert([
                 'name' => $data['name'],
                 'gender' => $data['gender'],
@@ -38,7 +50,7 @@ class ToolkitsSeeder extends Seeder
                 'option' => $data['option'],
                 'level' => $data['level'],
                 'training_intake' => $data['training_intake'],
-                'reception_date' => $data['reception_date'],
+                'reception_date' => $receptionDate,
                 'toolkit_received' => $data['toolkit_received'],
                 'toolkit_cost' => $data['toolkit_cost'],
                 'subsidized_percent' => $data['subsidized_percent'],
@@ -46,7 +58,6 @@ class ToolkitsSeeder extends Seeder
                 'total' => $data['total'],
                 'created_at' => now(),
                 'updated_at' => now(),
-
             ]);
         }
     }
