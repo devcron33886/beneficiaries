@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\GenderEnum;
 use App\Filament\Resources\ToolkitResource\Pages;
 use App\Filament\Resources\ToolkitResource\RelationManagers;
 use App\Models\Toolkit;
@@ -25,14 +26,26 @@ class ToolkitResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\TextInput::make('gender'),
-                Forms\Components\TextInput::make('identification_number'),
+                Forms\Components\Select::make('gender')
+                    ->options(GenderEnum::class)
+                    ->native(false),
+                Forms\Components\TextInput::make('identification_number')
+                    ->minLength(16)
+                    ->maxLength(16)
+                    ->reactive()
+                    ->required(),
                 Forms\Components\TextInput::make('phone_number')
+                    ->minLength(10)
+                    ->maxLength(13)
                     ->tel(),
-                Forms\Components\TextInput::make('tvet_attended'),
-                Forms\Components\TextInput::make('option'),
-                Forms\Components\TextInput::make('level'),
-                Forms\Components\TextInput::make('training_intake'),
+                Forms\Components\TextInput::make('tvet_attended')
+                ->required(),
+                Forms\Components\TextInput::make('option')
+                ->required(),
+                Forms\Components\TextInput::make('level')
+                ->required(),
+                Forms\Components\TextInput::make('training_intake')
+                ->required(),
                 Forms\Components\DatePicker::make('reception_date'),
                 Forms\Components\TextInput::make('toolkit_received'),
                 Forms\Components\TextInput::make('toolkit_cost')
@@ -52,35 +65,24 @@ class ToolkitResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
+                    ->badge()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('identification_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('tvet_attended')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('option')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('level')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('training_intake')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('reception_date')
-                    ->date()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('toolkit_received')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('toolkit_cost')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('subsidized_percent')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('sector')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('total')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -98,7 +100,7 @@ class ToolkitResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
