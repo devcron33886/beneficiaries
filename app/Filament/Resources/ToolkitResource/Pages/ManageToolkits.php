@@ -13,7 +13,7 @@ class ManageToolkits extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->slideOver()->label('Add Beneficiary')->icon('heroicon-o-plus-circle'),
+            Actions\CreateAction::make(),
         ];
     }
 }
