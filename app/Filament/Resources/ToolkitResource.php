@@ -34,7 +34,7 @@ class ToolkitResource extends Resource
                 Forms\Components\TextInput::make('level'),
                 Forms\Components\TextInput::make('training_intake'),
                 Forms\Components\DatePicker::make('reception_date'),
-                Forms\Components\Toggle::make('toolkit_received'),
+                Forms\Components\TextInput::make('toolkit_received'),
                 Forms\Components\TextInput::make('toolkit_cost')
                     ->numeric(),
                 Forms\Components\TextInput::make('subsidized_percent')
@@ -68,8 +68,8 @@ class ToolkitResource extends Resource
                 Tables\Columns\TextColumn::make('reception_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('toolkit_received')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('toolkit_received')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('toolkit_cost')
                     ->numeric()
                     ->sortable(),
