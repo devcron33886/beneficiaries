@@ -26,7 +26,7 @@ return new class extends Migration
             $table->date('package_reception_date')->nullable();
             $table->float('entry_muac')->nullable();
             $table->float('current_muac')->nullable();
-            $table->string('current _nutrition_color_code');
+            $table->string('current_nutrition_color_code')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
