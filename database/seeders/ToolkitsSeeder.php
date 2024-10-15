@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class ToolkitsSeeder extends Seeder
 {
@@ -32,7 +32,7 @@ class ToolkitsSeeder extends Seeder
 
             // Convert date format
             $receptionDate = null;
-            if (!is_null($data['reception_date'])) {
+            if (! is_null($data['reception_date'])) {
                 try {
                     $receptionDate = Carbon::createFromFormat('d-m-Y', $data['reception_date'])->format('Y-m-d');
                 } catch (\Exception $e) {

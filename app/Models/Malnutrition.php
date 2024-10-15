@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\GenderEnum;
+use App\Enums\NutritionColor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,6 +12,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Malnutrition extends Model
 {
     use SoftDeletes;
+
+    protected $casts = ['gender' => GenderEnum::class, 'current_nutrition_color_code' => NutritionColor::class];
 
     protected $guarded = [];
 

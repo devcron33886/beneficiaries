@@ -2,22 +2,23 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\GenderEnum;
+use App\Enums\NutritionColor;
 use App\Filament\Resources\MalnutritionResource\Pages;
-use App\Filament\Resources\MalnutritionResource\RelationManagers;
 use App\Models\Malnutrition;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MalnutritionResource extends Resource
 {
     protected static ?string $model = Malnutrition::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Malnutrition Management';
 
     public static function form(Form $form): Form
     {
@@ -25,13 +26,17 @@ class MalnutritionResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\TextInput::make('gender'),
+                Forms\Components\Select::make('gender')
+                    ->options(GenderEnum::class)->native(false),
                 Forms\Components\TextInput::make('age_or_months'),
                 Forms\Components\TextInput::make('associated_health_center')
                     ->required(),
-                Forms\Components\TextInput::make('sector'),
-                Forms\Components\TextInput::make('cell'),
-                Forms\Components\TextInput::make('village'),
+                Forms\Components\TextInput::make('sector')
+                    ->required(),
+                Forms\Components\TextInput::make('cell')
+                    ->required(),
+                Forms\Components\TextInput::make('village')
+                    ->required(),
                 Forms\Components\TextInput::make('father_name'),
                 Forms\Components\TextInput::make('mother_name'),
                 Forms\Components\TextInput::make('home_phone_number')
@@ -41,7 +46,7 @@ class MalnutritionResource extends Resource
                     ->numeric(),
                 Forms\Components\TextInput::make('current_muac')
                     ->numeric(),
-                Forms\Components\TextInput::make('current_nutrition_color_code'),
+                Forms\Components\Select::make('current_nutrition_color_code')->options(NutritionColor::class)->native(false),
             ]);
     }
 
@@ -52,33 +57,17 @@ class MalnutritionResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('age_or_months')
+                    ->badge()
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('associated_health_center')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sector')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('cell')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('village')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('father_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('mother_name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('home_phone_number')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('package_reception_date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('entry_muac')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('current_muac')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('current_nutrition_color_code')
+                    ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -94,10 +83,15 @@ class MalnutritionResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('gender')
+                    ->options(GenderEnum::class)
+                    ->native(false),
+                SelectFilter::make('current_nutrition_color_code')
+                    ->options(NutritionColor::class)
+                    ->native(false),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

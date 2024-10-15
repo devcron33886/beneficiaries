@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class MalnutritionSeeder extends Seeder
 {
@@ -28,7 +28,7 @@ class MalnutritionSeeder extends Seeder
 
             // Convert package_reception_date to Y-m-d format
             $packageReceptionDate = null;
-            if (!is_null($data['package_reception_date'])) {
+            if (! is_null($data['package_reception_date'])) {
                 try {
                     $packageReceptionDate = Carbon::createFromFormat('d/m/Y', $data['package_reception_date'])->format('Y-m-d');
                 } catch (\Exception $e) {

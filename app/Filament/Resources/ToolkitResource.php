@@ -4,15 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Enums\GenderEnum;
 use App\Filament\Resources\ToolkitResource\Pages;
-use App\Filament\Resources\ToolkitResource\RelationManagers;
 use App\Models\Toolkit;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ToolkitResource extends Resource
 {
@@ -39,13 +36,13 @@ class ToolkitResource extends Resource
                     ->maxLength(13)
                     ->tel(),
                 Forms\Components\TextInput::make('tvet_attended')
-                ->required(),
+                    ->required(),
                 Forms\Components\TextInput::make('option')
-                ->required(),
+                    ->required(),
                 Forms\Components\TextInput::make('level')
-                ->required(),
+                    ->required(),
                 Forms\Components\TextInput::make('training_intake')
-                ->required(),
+                    ->required(),
                 Forms\Components\DatePicker::make('reception_date'),
                 Forms\Components\TextInput::make('toolkit_received'),
                 Forms\Components\TextInput::make('toolkit_cost')
