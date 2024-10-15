@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SchoolFeedingSeeder::class,
             ScholarshipSeeder::class,
             ToolkitsSeeder::class,
+            MalnutritionSeeder::class,
 
         ]);
     }
