@@ -45,7 +45,7 @@ class ToolkitsSeeder extends Seeder
                 'name' => $data['name'],
                 'gender' => $data['gender'],
                 'identification_number' => $data['identification_number'],
-                'phone_number' => $data['phone_number'],
+                'phone_number' => $this->formatPhoneNumber($data['phone_number']),
                 'tvet_attended' => $data['tvet_attended'],
                 'option' => $data['option'],
                 'level' => $data['level'],
@@ -61,4 +61,27 @@ class ToolkitsSeeder extends Seeder
             ]);
         }
     }
+    /**
+     * Format phone number to include country code if missing
+     *
+     * @param string|null $phone
+     * @return string|null
+     */
+    private function formatPhoneNumber(?string $phone): ?string
+    {
+        if (empty($phone)) {
+            return null;
+        }
+
+        // Remove any non-numeric characters
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
+        // If number starts with 7, add Rwanda country code
+        if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
+            return '+250' . $phone;
+        }
+
+        return $phone;
+    }
+
 }

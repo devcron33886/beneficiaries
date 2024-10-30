@@ -4,88 +4,67 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class ZamukaSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeder.
+     *
+     * @return void
      */
     public function run(): void
     {
+        $csvFile = database_path('seeders/data/zamuka.csv');
+        $firstRow = true;
 
-        $csvFile = base_path('/database/seeders/data/zamuka.csv');
-        $data = $this->csvToArray($csvFile);
-        foreach ($data as $row) {
-            // Check if foreign key values exist
-            if (
-                $this->foreignKeyExists('districts', $row['district_id']) &&
-                $this->foreignKeyExists('sectors', $row['sector_id']) &&
-                $this->foreignKeyExists('cells', $row['cell_id']) &&
-                $this->foreignKeyExists('villages', $row['village_id'])
-            ) {
+        if (($handle = fopen($csvFile, 'r')) !== false) {
+            while (($row = fgetcsv($handle)) !== false) {
+                // Skip header row
+                if ($firstRow) {
+                    $firstRow = false;
+                    continue;
+                }
+
                 DB::table('zamuka_beneficiaries')->insert([
-                    'head_of_household_name' => $row['head_of_household_name'],
-                    'household_id_number' => $row['household_id_number'],
-                    'spouse_name' => $row['spouse_name'],
-                    'spouse_id_number' => $row['spouse_id_number'],
-                    'district_id' => $row['district_id'],
-                    'sector_id' => $row['sector_id'],
-                    'cell_id' => $row['cell_id'],
-                    'village_id' => $row['village_id'],
-                    'house_hold_phone' => $row['house_hold_phone'],
-                    'family_size' => $this->parseInteger($row['family_size']),
-                    'main_source_of_income' => $row['main_source_of_income'],
-                    'entrance_year' => $row['entrance_year'],
+                    'head_of_household_name' => $row[0] ?: null,
+                    'household_id_number' => $row[1] ?: null,
+                    'spouse_name' => $row[2] ?: null,
+                    'spouse_id_number' => $row[3] ?: null,
+                    'sector' => $row[4] ?: null,
+                    'cell' => $row[5] ?: null,
+                    'village' => $row[6] ?: null,
+                    'house_hold_phone' => $this->formatPhoneNumber($row[7]),
+                    'family_size' => $row[8] ? (int)$row[8] : null,
+                    'main_source_of_income' => $row[9] ?: null,
+                    'entrance_year' => $row[10] ?: null,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-            } else {
-                // Log or handle the error for foreign key constraint failure
-                // This can be logged to a file or displayed for debugging
-                echo 'Foreign key constraint failed for row: '.json_encode($row)."\n";
             }
+            fclose($handle);
         }
     }
 
     /**
-     * Convert a CSV file to an array.
+     * Format phone number to include country code if missing
      *
-     * @param  string  $filename
-     * @return array
+     * @param string|null $phone
+     * @return string|null
      */
-    private function csvToArray($filename)
+    private function formatPhoneNumber(?string $phone): ?string
     {
-        $rows = array_map('str_getcsv', file($filename));
-        $header = array_shift($rows);
-        $csv = [];
-        foreach ($rows as $row) {
-            $csv[] = array_combine($header, $row);
+        if (empty($phone)) {
+            return null;
         }
 
-        return $csv;
-    }
+        // Remove any non-numeric characters
+        $phone = preg_replace('/[^0-9]/', '', $phone);
 
-    /**
-     * Check if a foreign key value exists in the given table.
-     *
-     * @param  string  $table
-     * @param  mixed  $id
-     * @return bool
-     */
-    private function foreignKeyExists($table, $id)
-    {
-        return DB::table($table)->where('id', $id)->exists();
-    }
+        // If number starts with 7, add Rwanda country code
+        if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
+            return '+250' . $phone;
+        }
 
-    /**
-     * Parse an integer value, handling empty strings.
-     *
-     * @param  mixed  $value
-     * @return int|null
-     */
-    private function parseInteger($value)
-    {
-        return empty($value) ? null : (int) $value;
+        return $phone;
     }
 }

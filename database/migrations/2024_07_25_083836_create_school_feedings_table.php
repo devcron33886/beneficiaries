@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('school')->nullable();
             $table->string('option')->nullable();
             $table->string('school_phone')->nullable();
-            $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
-            $table->foreignId('sector_id')->nullable()->constrained('sectors')->onDelete('cascade');
-            $table->foreignId('cell_id')->nullable()->constrained('cells')->onDelete('cascade');
-            $table->foreignId('village_id')->nullable()->constrained('villages')->onDelete('cascade');
+            $table->string('district')->nullable();
+            $table->string('sector')->nullable();
+            $table->string('cell')->nullable();
+            $table->string('village')->nullable();
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('home_phone')->nullable();

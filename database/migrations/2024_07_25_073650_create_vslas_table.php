@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('representative_name');
             $table->string('representative_id');
             $table->string('representative_phone')->nullable();
-            $table->foreignId('sector_id')->nullable()->constrained('sectors')->onDelete('cascade');
-            $table->foreignId('cell_id')->nullable()->constrained('cells')->onDelete('cascade');
-            $table->foreignId('village_id')->nullable()->constrained('villages')->onDelete('cascade');
+            $table->string('sector')->nullable();
+            $table->string('cell')->nullable();
+            $table->string('village')->nullable();
             $table->string('entrance_year');
             $table->string('mou_sign_date')->nullable();
             $table->timestamps();

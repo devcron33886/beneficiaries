@@ -18,6 +18,7 @@ class MalnutritionResource extends Resource
     protected static ?string $model = Malnutrition::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
     protected static ?string $navigationGroup = 'Malnutrition Management';
 
     public static function form(Form $form): Form

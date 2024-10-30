@@ -4,10 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MvtcBeneficiaryResource\Pages;
 use App\Models\MvtcBeneficiary;
+use Exception;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class MvtcBeneficiaryResource extends Resource
@@ -20,30 +22,51 @@ class MvtcBeneficiaryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('reg_no')
-                    ->required(),
+                Forms\Components\TextInput::make('reg_no'),
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\TextInput::make('gender')
-                    ->required(),
-                Forms\Components\Select::make('district_id')
-                    ->relationship('district', 'name'),
-                Forms\Components\Select::make('sector_id')
-                    ->relationship('sector', 'name'),
+                Forms\Components\Select::make('gender')
+                    ->options([
+                        'MALE' => 'MALE',
+                        'FEMALE' => 'FEMALE',
+                    ])
+                    ->native(false)
+                ->required(),
+                Forms\Components\TextInput::make('dob'),
                 Forms\Components\TextInput::make('student_id'),
-                Forms\Components\TextInput::make('student_contact')
-                    ->required(),
-                Forms\Components\TextInput::make('trade')
-                    ->required(),
-                Forms\Components\TextInput::make('scholar_type')
-                    ->required(),
-                Forms\Components\TextInput::make('intake')
-                    ->required(),
-                Forms\Components\TextInput::make('graduation_date')
-                    ->required(),
+                Forms\Components\TextInput::make('student_contact'),
+                Forms\Components\Select::make('trade')
+                    ->options([
+                        'Auto engine Repair' => 'Auto engine Repair',
+                        'TAILORING' => 'TAILORING',
+                        'Tailoring Nyarugenge' => 'Tailoring Nyarugenge',
+                        'MULTIMEDIA' => 'MULTIMEDIA',
+                        'WELDING' => 'WELDING',
+                        'HAIRDRESSING' => 'HAIRDRESSING',
+
+                    ])->native(false),
+                Forms\Components\TextInput::make('resident_district'),
+                Forms\Components\TextInput::make('sector'),
+                Forms\Components\TextInput::make('cell'),
+                Forms\Components\TextInput::make('village'),
+                Forms\Components\TextInput::make('education_level'),
+                Forms\Components\Select::make('scholar_type')
+                ->options([
+                    'FMO School feeding'=>'FMO School feeding',
+                    'Private'=>'Private',
+                    'NGO Scholar'=>'NGO Scholar',
+                    'Full Scholarship'=>'Full Scholarship'
+
+                ])->native(false),
+                Forms\Components\TextInput::make('intake'),
+                Forms\Components\TextInput::make('graduation_date'),
+                Forms\Components\TextInput::make('status'),
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -54,23 +77,15 @@ class MvtcBeneficiaryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('district.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('sector.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('student_id')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('student_contact')
+                    ->label('Student Contact')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('trade')
+                Tables\Columns\TextColumn::make('trade')->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('scholar_type')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('intake')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('graduation_date')
+
+
+                Tables\Columns\TextColumn::make('status')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -86,11 +101,30 @@ class MvtcBeneficiaryResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options([
+                        'Graduated' => 'Graduated',
+                        'Dropped Out' => 'Dropped Out',
+                        'In Progress' => 'In Progress',
+                    ])->native(false),
+                SelectFilter::make('gender')
+                    ->options([
+                        'MALE' => 'MALE',
+                        'FEMALE' => 'FEMALE',
+
+                    ])->native(false),
+                SelectFilter::make('scholar_type')
+                    ->options([
+                        'FMO School feeding'=>'FMO School feeding',
+                        'Private'=>'Private',
+                        'NGO Scholar'=>'NGO Scholar',
+                        'Full Scholarship'=>'Full Scholarship'
+
+                    ])->native(false)
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
+                Tables\Actions\DeleteAction::make()->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

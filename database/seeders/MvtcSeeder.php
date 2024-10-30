@@ -12,48 +12,64 @@ class MvtcSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
-        // Path to your CSV file
-        $file = database_path('seeders/data/mvtc.csv');
 
-        //Check if the file exists
-        if (! File::exists($file)) {
-            echo "File not found: $file";
+        $csvFile = database_path('seeders/data/mvtc.csv');
+        $firstRow = true;
 
-            return;
+        if (($handle = fopen($csvFile, 'r')) !== false) {
+            while (($row = fgetcsv($handle)) !== false) {
+                // Skip header row
+                if ($firstRow) {
+                    $firstRow = false;
+                    continue;
+                }
+
+                DB::table('mvtc_beneficiaries')->insert([
+                    "reg_no" => $row[0] ?? null,
+                    "name" => $row[1] ?? null,
+                    "gender" => $row[2] ?? null,
+                    "dob" => !empty($row[3]) ? $row[3] : null,
+                    "student_id" => $row[4] ?? null,
+                    "student_contact" => $this->formatPhoneNumber($row[5]) ?? null,
+                    "trade" => $row[6] ?? null,
+                    "resident_district" => $row[7] ?? null,
+                    "sector" => $row[8] ?? null,
+                    "cell" => $row[9] ?? null,
+                    "village" => $row[10] ?? null,
+                    "education_level" => $row[11] ?? null,
+                    "scholar_type" => $row[12] ?? null,
+                    "intake" => $row[13] ?? null,
+                    "graduation_date" => $row[14] ?? null,
+                    "status" => $row[15] ?? null,
+                    "created_at" => now(),
+                    "updated_at" => now()
+                ]);
+            }
+            fclose($handle);
+        }
+    }
+    /**
+     * Format phone number to include country code if missing
+     *
+     * @param string|null $phone
+     * @return string|null
+     */
+    private function formatPhoneNumber(?string $phone): ?string
+    {
+        if (empty($phone)) {
+            return null;
         }
 
-        // Read the CSV file
-        $data = array_map('str_getcsv', file($file));
+        // Remove any non-numeric characters
+        $phone = preg_replace('/[^0-9]/', '', $phone);
 
-        // Get the header of the CSV file
-        $header = array_shift($data);
-
-        foreach ($data as $row) {
-            $rowData = array_combine($header, $row);
-
-            // Handle empty strings and null foreign keys
-            $district_id = ! empty($rowData['district_id']) ? $rowData['district_id'] : null;
-            $sector_id = ! empty($rowData['sector_id']) ? $rowData['sector_id'] : null;
-
-            // Handle graduation_date as either a valid date or null
-            $graduation_date = ! empty($rowData['graduation_date']) ? $rowData['graduation_date'] : null;
-            DB::table('mvtc_beneficiaries')->insert([
-                'reg_no' => $rowData['reg_no'] ?? null,
-                'name' => $rowData['name'] ?? null,
-                'gender' => $rowData['gender'] ?? null,
-                'district_id' => $district_id,
-                'sector_id' => $sector_id,
-                'student_id' => $rowData['student_id'] ?? null,
-                'student_contact' => $rowData['student_contact'] ?? null,
-                'trade' => $rowData['trade'] ?? null,
-                'scholar_type' => $rowData['scholar_type'] ?? null,
-                'intake' => $rowData['intake'] ?? null,
-                'graduation_date' => $graduation_date, // If null, ensure this field is nullable in the database
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+        // If number starts with 7, add Rwanda country code
+        if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
+            return '+250' . $phone;
         }
+
+        return $phone;
     }
 }

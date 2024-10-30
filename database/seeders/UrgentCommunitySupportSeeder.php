@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
-class EcdSeeder extends Seeder
+class UrgentCommunitySupportSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $csvFile = database_path('seeders/data/ecd.csv');
+        $csvFile = database_path('seeders/data/urgent.csv');
         $firstRow = true;
 
         if (($handle = fopen($csvFile, 'r')) !== false) {
@@ -21,22 +21,19 @@ class EcdSeeder extends Seeder
                 // Skip header row
                 if ($firstRow) {
                     $firstRow = false;
+
                     continue;
                 }
 
-                DB::table('ecd_beneficiaries')->insert([
-                    'name' => $row[0],
-                    'grade' => $row[1] ?: null,
-                    'gender' => $row[2]?: null,
-                    'birthday' => $row[3] ?: null,
-                    'academic_year' => $row[4] ?: null,
-                    'sector' => $row[5] ?: null,
-                    'cell' => $row[6] ?: null,
-                    'village' => $row[7] ?: null, // Handle empty value
-                    'father_name' => $row[8]?: null,
-                    'father_id_number' => $row[9] ?: null,
-                    'mother_name' => $row[10] ?: null,
-                    'home_phone_number' =>$this->formatPhoneNumber($row[11]) ?: null,
+                DB::table('urgent_community_supports')->insert([
+                    'name' => $row[0] ?? null,
+                    'national_id_number' => $row[1] ?? null,
+                    'sector' => $row[2] ?? null,
+                    'cell' => ! empty($row[3]) ? $row[3] : null,
+                    'village' => $row[4] ?? null,
+                    'phone_number' => $this->formatPhoneNumber($row[5]) ?? null,
+                    'support' => $row[6] ?? null,
+                    'done_at' => $this->formatDoneAt($row[7]) ?? null,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -44,11 +41,15 @@ class EcdSeeder extends Seeder
             fclose($handle);
         }
     }
+
+    /** Format date that action has taken place */
+    private function formatDoneAt($done_at): void
+    {
+        Carbon::createFromFormat('d-m-Y', $done_at);
+    }
+
     /**
      * Format phone number to include country code if missing
-     *
-     * @param string|null $phone
-     * @return string|null
      */
     private function formatPhoneNumber(?string $phone): ?string
     {
@@ -61,7 +62,7 @@ class EcdSeeder extends Seeder
 
         // If number starts with 7, add Rwanda country code
         if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
-            return '+250' . $phone;
+            return '+250'.$phone;
         }
 
         return $phone;

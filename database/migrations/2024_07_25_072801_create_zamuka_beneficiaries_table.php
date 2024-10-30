@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('household_id_number')->nullable();
             $table->string('spouse_name')->nullable();
             $table->string('spouse_id_number')->nullable();
-            $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
-            $table->foreignId('sector_id')->nullable()->constrained('sectors')->onDelete('cascade');
-            $table->foreignId('cell_id')->nullable()->constrained('cells')->onDelete('cascade');
-            $table->foreignId('village_id')->nullable()->constrained('villages')->onDelete('cascade');
+            $table->string('sector')->nullable();
+            $table->string('cell')->nullable();
+            $table->string('village')->nullable();
             $table->string('house_hold_phone')->nullable();
             $table->integer('family_size')->nullable();
             $table->string('main_source_of_income')->nullable();

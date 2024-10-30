@@ -25,32 +25,24 @@ class SchoolFeedingSeeder extends Seeder
         while (($row = fgetcsv($handle)) !== false) {
             $data = [
                 'name' => $row[0],
-                'grade' => $row[1],
-                'gender' => $row[2],
-                'school' => $row[3],
+                'grade' => $row[1] ?: null,
+                'gender' => $row[2] ?: null,
+                'school' => $row[3]?: null,
                 'option' => $row[4],
-                'school_phone' => $row[5],
-                'father_name' => $row[10],
-                'mother_name' => $row[11],
-                'home_phone' => $row[12],
+                'school_phone' => $row[5]?: null,
+                'district' => $row[6] ?: null,
+                'sector' => $row[7] ?: null,
+                'cell' => $row[8]?: null,
+                'village' => $row[9]?: null,
+                'father_name' => $row[10]?: null,
+                'mother_name' => $row[11]?: null,
+                'home_phone' => $row[12]?: null,
                 'status' => $row[13],
-                'created_at' => now(),
+                'created_at' => now()?: null,
                 'updated_at' => now(),
             ];
 
-            // Handle null foreign keys
-            if ($row[6] !== '') {
-                $data['district_id'] = $row[6];
-            }
-            if ($row[7] !== '') {
-                $data['sector_id'] = $row[7];
-            }
-            if ($row[8] !== '') {
-                $data['cell_id'] = $row[8];
-            }
-            if ($row[9] !== '') {
-                $data['village_id'] = $row[9];
-            }
+
 
             DB::table('school_feedings')->insert($data);
         }

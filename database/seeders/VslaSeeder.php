@@ -2,90 +2,65 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vsla;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class VslaSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeder.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        $vslas = [
-            [
-                'code' => '23NGI8',
-                'name' => 'DUTABARANE No1',
-                'representative_name' => 'NTAKIRUTIMANA JONAS',
-                'representative_id' => '1197280072044001',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23SRU3',
-                'name' => 'DUTERANINKUNGA',
-                'representative_name' => 'NZAMUKUNDA SOPHIE',
-                'representative_id' => '1198870147707074',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23NMU1',
-                'name' => 'Koperative TEMUNYA',
-                'representative_name' => 'BYUKUSENGE VIANNEY',
-                'representative_id' => '1197680077265072',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23SNZ2',
-                'name' => 'TUZAMURANE',
-                'representative_name' => 'HABIMANANA JEAN DAMASCENE',
-                'representative_id' => '1197680078080025',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23SKA5',
-                'name' => 'TWISUNGANE',
-                'representative_name' => 'NYIRANTEZIRYAYO Fortune',
-                'representative_id' => '1197270072039054',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23NKA7',
-                'name' => 'TWISUNGANE KABUYE',
-                'representative_name' => 'UWIZEYIMANA CHARLES',
-                'representative_id' => '1195880063881081',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23SRE6',
-                'name' => 'TWISUNGANE SHYARA 15',
-                'representative_name' => 'NYIRAHAKIZIMANA DATIVE',
-                'representative_id' => '1199070145557092',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-            [
-                'code' => '23NNG10',
-                'name' => 'NYIRANSENGIMANA ESPERANCE',
-                'representative_name' => '1198570141203228',
-                'representative_id' => '1197280072044001',
-                'representative_phone' => '',
-                'entrance_year' => '2023',
-                'mou_sign_date' => '04-03-2023',
-            ],
-        ];
-        Vsla::insert($vslas);
+        $csvFile = database_path('seeders/data/vslas.csv');
+        $firstRow = true;
+
+        if (($handle = fopen($csvFile, 'r')) !== false) {
+            while (($row = fgetcsv($handle)) !== false) {
+                // Skip header row
+                if ($firstRow) {
+                    $firstRow = false;
+                    continue;
+                }
+
+                DB::table('vslas')->insert([
+                    'code' => $row[0],
+                    'name' => $row[1],
+                    'representative_name' => $row[2],
+                    'representative_id' => $row[3],
+                    'representative_phone' => $row[4],
+                    'sector' => $row[5],
+                    'cell' => $row[6],
+                    'village' => $row[7] ?: null, // Handle empty value
+                    'entrance_year' => $row[8],
+                    'mou_sign_date' => $this->parseDate($row[9]),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+            fclose($handle);
+        }
+    }
+
+    /**
+     * Parse date from CSV format to database format
+     *
+     * @param string $date
+     * @return string|null
+     */
+    private function parseDate(string $date): ?string
+    {
+        if (empty($date)) {
+            return null;
+        }
+
+        try {
+            return Carbon::createFromFormat('n/j/Y', $date)->format('d-m-Y');
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }

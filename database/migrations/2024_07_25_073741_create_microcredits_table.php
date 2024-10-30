@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('gender');
             $table->string('id_number')->nullable()->unique();
-            $table->foreignId('district_id')->nullable()->constrained('districts')->onDelete('cascade');
-            $table->foreignId('sector_id')->nullable()->constrained('sectors')->onDelete('cascade');
-            $table->foreignId('cell_id')->nullable()->constrained('cells')->onDelete('cascade');
-            $table->foreignId('village_id')->nullable()->constrained('villages')->onDelete('cascade');
+            $table->string('sector')->nullable();
+            $table->string('cell')->nullable();
+            $table->string('village')->nullable();
             $table->string('mobile')->nullable();
             $table->integer('loan_one')->nullable();
             $table->integer('loan_two')->nullable();
