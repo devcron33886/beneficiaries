@@ -27,22 +27,20 @@ class SchoolFeedingSeeder extends Seeder
                 'name' => $row[0],
                 'grade' => $row[1] ?: null,
                 'gender' => $row[2] ?: null,
-                'school' => $row[3]?: null,
+                'school' => $row[3] ?: null,
                 'option' => $row[4],
-                'school_phone' => $row[5]?: null,
+                'school_phone' => $row[5] ?: null,
                 'district' => $row[6] ?: null,
                 'sector' => $row[7] ?: null,
-                'cell' => $row[8]?: null,
-                'village' => $row[9]?: null,
-                'father_name' => $row[10]?: null,
-                'mother_name' => $row[11]?: null,
-                'home_phone' => $row[12]?: null,
+                'cell' => $row[8] ?: null,
+                'village' => $row[9] ?: null,
+                'father_name' => $row[10] ?: null,
+                'mother_name' => $row[11] ?: null,
+                'home_phone' => $row[12] ?: null,
                 'status' => $row[13],
-                'created_at' => now()?: null,
+                'created_at' => now() ?: null,
                 'updated_at' => now(),
             ];
-
-
 
             DB::table('school_feedings')->insert($data);
         }

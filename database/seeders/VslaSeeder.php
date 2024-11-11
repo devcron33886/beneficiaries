@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class VslaSeeder extends Seeder
 {
@@ -23,6 +23,7 @@ class VslaSeeder extends Seeder
                 // Skip header row
                 if ($firstRow) {
                     $firstRow = false;
+
                     continue;
                 }
 
@@ -47,9 +48,6 @@ class VslaSeeder extends Seeder
 
     /**
      * Parse date from CSV format to database format
-     *
-     * @param string $date
-     * @return string|null
      */
     private function parseDate(string $date): ?string
     {

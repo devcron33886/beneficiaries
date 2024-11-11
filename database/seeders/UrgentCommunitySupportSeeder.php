@@ -29,23 +29,17 @@ class UrgentCommunitySupportSeeder extends Seeder
                     'name' => $row[0] ?? null,
                     'national_id_number' => $row[1] ?? null,
                     'sector' => $row[2] ?? null,
-                    'cell' => ! empty($row[3]) ? $row[3] : null,
+                    'cell' => $row[3] ?: null,
                     'village' => $row[4] ?? null,
                     'phone_number' => $this->formatPhoneNumber($row[5]) ?? null,
                     'support' => $row[6] ?? null,
-                    'done_at' => $this->formatDoneAt($row[7]) ?? null,
+                    'done_at' => Carbon::createFromFormat($row[7]) ?? null,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
             fclose($handle);
         }
-    }
-
-    /** Format date that action has taken place */
-    private function formatDoneAt($done_at): void
-    {
-        Carbon::createFromFormat('d-m-Y', $done_at);
     }
 
     /**

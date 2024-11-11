@@ -18,20 +18,66 @@ class SchoolFeedingSupportResource extends Resource
 
     protected static ?string $navigationGroup = 'School Feeding Management';
 
+    protected static ?string $recordTitleAttribute = 'support_given';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('school_feeding_id')
+                    ->label('Choose Student')
                     ->relationship('schoolFeeding', 'name')
+                    ->searchable()
+                    ->native(false)
                     ->required(),
+                Forms\Components\Select::make('current_grade')
+                    ->label('Current Grade')
+                    ->options([
+                        'S1' => 'S1',
+                        'S2' => 'S2',
+                        'S3' => 'S3',
+                        'S4' => 'S4',
+                        'S5' => 'S5',
+                        'S6' => 'S6',
+                        'P1' => 'P1',
+                        'P2' => 'P2',
+                        'P3' => 'P3',
+                        'P4' => 'P4',
+                        'P5' => 'P5',
+                        'P6' => 'P6',
+                    ])
+                    ->native(false)
+                    ->searchable(),
                 Forms\Components\TextInput::make('academic_year')
                     ->required(),
-                Forms\Components\TextInput::make('trimester')
+                Forms\Components\Select::make('trimester')
+                    ->options([
+                        'first' => 'First Trimester',
+                        'second' => 'Second Trimester',
+                        'third' => 'Third Trimester',
+                    ])
+                    ->native(false)
+                    ->searchable()
                     ->required(),
-            ]);
+                Forms\Components\CheckboxList::make('support_given')
+                    ->label('Support Received')
+                    ->options([
+                        'school_fees' => 'School Fees',
+                        'school_materials' => 'School Materials',
+                        'pads' => 'Pads',
+                        'school_uniforms' => 'School Uniforms',
+                        'shoes' => 'Shoes',
+                        'clothes' => 'Clothes',
+                    ])->columns(2),
+                Forms\Components\Textarea::make('notes')
+                    ->label('Notes'),
+
+            ])->columns(1);
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -57,12 +103,23 @@ class SchoolFeedingSupportResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('trimester')->options([
+                    'first' => 'First Trimester',
+                    'second' => 'Second Trimester',
+                    'third' => 'Third Trimester', ])->native(false),
+                Tables\Filters\SelectFilter::make('support_given')->options([
+                    'school_fees' => 'School Fees',
+                    'school_materials' => 'School Materials',
+                    'pads' => 'Pads',
+                    'school_uniforms' => 'School Uniforms',
+                    'shoes' => 'Shoes',
+                    'clothes' => 'Clothes',
+                ])->native(false)->searchable(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()->slideOver(),
+                Tables\Actions\EditAction::make()->slideOver(),
+                Tables\Actions\DeleteAction::make()->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

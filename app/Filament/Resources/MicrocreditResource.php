@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MicrocreditResource\Pages;
 use App\Models\Microcredit;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -16,34 +17,28 @@ class MicrocreditResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Microcredit Management';
+    protected static ?string $navigationGroup = 'Micro Credit Management';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('vsla_id')
+            ->schema([Section::make()
+                ->schema([
+                    Forms\Components\Select::make('vsla_id')
                     ->relationship('vsla', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('gender')
-                    ->required(),
-                Forms\Components\TextInput::make('id_number'),
-                Forms\Components\Select::make('district_id')
-                    ->relationship('district', 'name'),
-                Forms\Components\Select::make('sector_id')
-                    ->relationship('sector', 'name'),
-                Forms\Components\Select::make('cell_id')
-                    ->relationship('cell', 'name'),
-                Forms\Components\Select::make('village_id')
-                    ->relationship('village', 'name'),
-                Forms\Components\TextInput::make('mobile'),
-                Forms\Components\TextInput::make('loan_one')
-                    ->numeric(),
-                Forms\Components\TextInput::make('loan_two')
-                    ->numeric(),
-            ]);
+                    Forms\Components\TextInput::make('name')
+                        ->required(),
+                    Forms\Components\TextInput::make('gender')
+                        ->required(),
+                    Forms\Components\TextInput::make('id_number'),
+                    Forms\Components\TextInput::make('district')->default('Bugesera'),
+                    Forms\Components\TextInput::make('sector'),
+                    Forms\Components\TextInput::make('cell'),
+                    Forms\Components\TextInput::make('village'),
+                    Forms\Components\TextInput::make('mobile'),
+
+            ])]);
     }
 
     public static function table(Table $table): Table

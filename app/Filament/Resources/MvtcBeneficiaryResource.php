@@ -31,7 +31,7 @@ class MvtcBeneficiaryResource extends Resource
                         'FEMALE' => 'FEMALE',
                     ])
                     ->native(false)
-                ->required(),
+                    ->required(),
                 Forms\Components\TextInput::make('dob'),
                 Forms\Components\TextInput::make('student_id'),
                 Forms\Components\TextInput::make('student_contact'),
@@ -51,13 +51,13 @@ class MvtcBeneficiaryResource extends Resource
                 Forms\Components\TextInput::make('village'),
                 Forms\Components\TextInput::make('education_level'),
                 Forms\Components\Select::make('scholar_type')
-                ->options([
-                    'FMO School feeding'=>'FMO School feeding',
-                    'Private'=>'Private',
-                    'NGO Scholar'=>'NGO Scholar',
-                    'Full Scholarship'=>'Full Scholarship'
+                    ->options([
+                        'FMO School feeding' => 'FMO School feeding',
+                        'Private' => 'Private',
+                        'NGO Scholar' => 'NGO Scholar',
+                        'Full Scholarship' => 'Full Scholarship',
 
-                ])->native(false),
+                    ])->native(false),
                 Forms\Components\TextInput::make('intake'),
                 Forms\Components\TextInput::make('graduation_date'),
                 Forms\Components\TextInput::make('status'),
@@ -82,7 +82,6 @@ class MvtcBeneficiaryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('trade')->sortable()
                     ->searchable(),
-
 
                 Tables\Columns\TextColumn::make('status')
                     ->sortable()
@@ -115,12 +114,12 @@ class MvtcBeneficiaryResource extends Resource
                     ])->native(false),
                 SelectFilter::make('scholar_type')
                     ->options([
-                        'FMO School feeding'=>'FMO School feeding',
-                        'Private'=>'Private',
-                        'NGO Scholar'=>'NGO Scholar',
-                        'Full Scholarship'=>'Full Scholarship'
+                        'FMO School feeding' => 'FMO School feeding',
+                        'Private' => 'Private',
+                        'NGO Scholar' => 'NGO Scholar',
+                        'Full Scholarship' => 'Full Scholarship',
 
-                    ])->native(false)
+                    ])->native(false),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->slideOver(),

@@ -9,8 +9,6 @@ class ZamukaSeeder extends Seeder
 {
     /**
      * Run the database seeder.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -22,6 +20,7 @@ class ZamukaSeeder extends Seeder
                 // Skip header row
                 if ($firstRow) {
                     $firstRow = false;
+
                     continue;
                 }
 
@@ -34,7 +33,7 @@ class ZamukaSeeder extends Seeder
                     'cell' => $row[5] ?: null,
                     'village' => $row[6] ?: null,
                     'house_hold_phone' => $this->formatPhoneNumber($row[7]),
-                    'family_size' => $row[8] ? (int)$row[8] : null,
+                    'family_size' => $row[8] ? (int) $row[8] : null,
                     'main_source_of_income' => $row[9] ?: null,
                     'entrance_year' => $row[10] ?: null,
                     'created_at' => now(),
@@ -47,9 +46,6 @@ class ZamukaSeeder extends Seeder
 
     /**
      * Format phone number to include country code if missing
-     *
-     * @param string|null $phone
-     * @return string|null
      */
     private function formatPhoneNumber(?string $phone): ?string
     {
@@ -62,7 +58,7 @@ class ZamukaSeeder extends Seeder
 
         // If number starts with 7, add Rwanda country code
         if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
-            return '+250' . $phone;
+            return '+250'.$phone;
         }
 
         return $phone;

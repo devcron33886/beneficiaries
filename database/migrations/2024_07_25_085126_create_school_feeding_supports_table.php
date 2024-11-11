@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('school_feeding_id')->constrained('school_feedings')->onDelete('cascade');
             $table->string('academic_year');
             $table->string('trimester');
+            $table->string('current_grade');
+            $table->string('support_given');
+            $table->longText('notes');
             $table->timestamps();
             $table->softDeletes();
         });

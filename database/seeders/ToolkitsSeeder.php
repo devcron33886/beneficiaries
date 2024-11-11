@@ -61,11 +61,9 @@ class ToolkitsSeeder extends Seeder
             ]);
         }
     }
+
     /**
      * Format phone number to include country code if missing
-     *
-     * @param string|null $phone
-     * @return string|null
      */
     private function formatPhoneNumber(?string $phone): ?string
     {
@@ -78,10 +76,9 @@ class ToolkitsSeeder extends Seeder
 
         // If number starts with 7, add Rwanda country code
         if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
-            return '+250' . $phone;
+            return '+250'.$phone;
         }
 
         return $phone;
     }
-
 }

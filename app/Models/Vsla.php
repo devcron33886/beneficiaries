@@ -16,4 +16,9 @@ class Vsla extends Model
     {
         return $this->hasMany(Microcredit::class);
     }
+
+    public function topUps(): HasMany
+    {
+        return $this->hasMany(CreditTopUp::class);
+    }
 }

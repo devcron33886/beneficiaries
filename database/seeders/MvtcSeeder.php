@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class MvtcSeeder extends Seeder
 {
@@ -23,38 +21,37 @@ class MvtcSeeder extends Seeder
                 // Skip header row
                 if ($firstRow) {
                     $firstRow = false;
+
                     continue;
                 }
 
                 DB::table('mvtc_beneficiaries')->insert([
-                    "reg_no" => $row[0] ?? null,
-                    "name" => $row[1] ?? null,
-                    "gender" => $row[2] ?? null,
-                    "dob" => !empty($row[3]) ? $row[3] : null,
-                    "student_id" => $row[4] ?? null,
-                    "student_contact" => $this->formatPhoneNumber($row[5]) ?? null,
-                    "trade" => $row[6] ?? null,
-                    "resident_district" => $row[7] ?? null,
-                    "sector" => $row[8] ?? null,
-                    "cell" => $row[9] ?? null,
-                    "village" => $row[10] ?? null,
-                    "education_level" => $row[11] ?? null,
-                    "scholar_type" => $row[12] ?? null,
-                    "intake" => $row[13] ?? null,
-                    "graduation_date" => $row[14] ?? null,
-                    "status" => $row[15] ?? null,
-                    "created_at" => now(),
-                    "updated_at" => now()
+                    'reg_no' => $row[0] ?? null,
+                    'name' => $row[1] ?? null,
+                    'gender' => $row[2] ?? null,
+                    'dob' => ! empty($row[3]) ? $row[3] : null,
+                    'student_id' => $row[4] ?? null,
+                    'student_contact' => $this->formatPhoneNumber($row[5]) ?? null,
+                    'trade' => $row[6] ?? null,
+                    'resident_district' => $row[7] ?? null,
+                    'sector' => $row[8] ?? null,
+                    'cell' => $row[9] ?? null,
+                    'village' => $row[10] ?? null,
+                    'education_level' => $row[11] ?? null,
+                    'scholar_type' => $row[12] ?? null,
+                    'intake' => $row[13] ?? null,
+                    'graduation_date' => $row[14] ?? null,
+                    'status' => $row[15] ?? null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
             fclose($handle);
         }
     }
+
     /**
      * Format phone number to include country code if missing
-     *
-     * @param string|null $phone
-     * @return string|null
      */
     private function formatPhoneNumber(?string $phone): ?string
     {
@@ -67,7 +64,7 @@ class MvtcSeeder extends Seeder
 
         // If number starts with 7, add Rwanda country code
         if (strlen($phone) == 9 && str_starts_with($phone, '7')) {
-            return '+250' . $phone;
+            return '+250'.$phone;
         }
 
         return $phone;
